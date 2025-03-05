@@ -1,8 +1,7 @@
-using SQLite; /*Os using no C# funcionam como atalhos que nos permitem acessar funcionalidades específicas de 
-bibliotecas e frameworks sem precisar repetir todo o caminho de seus namespaces.*/
+using SQLite;
 
 
-namespace MauiAppMinhasCompras.Models; //Ele permite agrupar classes, funções e variáveis sob um mesmo identificador
+namespace MauiAppMinhasCompras.Models;
 
 public class Produto 
 {
