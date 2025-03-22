@@ -24,20 +24,26 @@ public class Produto
         get => _quantidade;
         set {
             if(value < 1){
-                throw new Exception("Quantidade não pode ser vazia ou menor que 1");
+                throw new Exception("Quantidade deve ser maior ou igual a 1");
             }
             _quantidade = value;
         } 
     }
     public double Preco { 
-        get => _preco;
+        get => _preco; 
         set {
-            if(value < 0){
-                throw new Exception("Preço não pode ser menor que 0");
+            if(value == 0){
+                throw new Exception("Preço não pode ser vazio ou igual a zero");
             }
-            _preco = value;
-        } 
+            
+            if(value < 0){
+                throw new Exception("Preço não pode ser menor que zero");
+            
+            }
+        _preco = value;
     }
+}
 
     public double Total { get => Quantidade * Preco; }
 }
+

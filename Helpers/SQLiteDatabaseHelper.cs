@@ -40,5 +40,10 @@ namespace MauiAppMinhasCompras.Helpers{
 
             return _conn.QueryAsync<Produto>(sql);
         }
+
+        internal async Task<object> ExecuteAsync(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
