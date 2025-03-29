@@ -1,4 +1,5 @@
-﻿using MauiAppMinhasCompras.Helpers;
+﻿using System.Globalization;
+using MauiAppMinhasCompras.Helpers;
 
 namespace MauiAppMinhasCompras;
 
@@ -25,6 +26,9 @@ public partial class App : Application
     public App()
 	{
 		InitializeComponent();
+	
+		//Definindo a cultura para Portugês do Brasil
+		Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR");
 
 		//MainPage = new AppShell();
 		MainPage = new NavigationPage(new Views.ListaProduto());

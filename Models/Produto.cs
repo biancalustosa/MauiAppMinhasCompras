@@ -8,6 +8,7 @@ public class Produto
     String _descricao;
     Double _quantidade;
     Double _preco;
+    String _categoria;
 
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
@@ -29,6 +30,17 @@ public class Produto
             _quantidade = value;
         } 
     }
+
+    public string Categoria{
+        get => _categoria;
+        set {
+            if(value == null){
+                throw new Exception("Categoria não pode ser vazia");
+            }
+            _categoria = value;
+        }
+    }
+    
     public double Preco { 
         get => _preco; 
         set {
@@ -40,9 +52,12 @@ public class Produto
                 throw new Exception("Preço não pode ser menor que zero");
             
             }
-        _preco = value;
+            _preco = value;
+         }
     }
-}
+
+   
+
 
     public double Total { get => Quantidade * Preco; }
 }

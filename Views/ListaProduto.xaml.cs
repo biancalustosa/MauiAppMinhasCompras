@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MauiAppMinhasCompras.Models;
+using Microsoft.Maui.Controls;
 
 namespace MauiAppMinhasCompras.Views;
 
@@ -9,7 +10,6 @@ public partial class ListaProduto : ContentPage
 	ObservableCollection<Produto> lista = new ObservableCollection<Produto>();
 	public ListaProduto()
 	{
-		
 		InitializeComponent();
 
 		lst_produtos.ItemsSource = lista;
@@ -23,8 +23,6 @@ public partial class ListaProduto : ContentPage
 	   		List<Produto> tmp = await App.Db.GetAll();
 
 			tmp.ForEach(i => lista.Add(i));
-
-			
 
 		}catch(Exception ex){
 
@@ -49,16 +47,25 @@ public partial class ListaProduto : ContentPage
 		try{
 
 			string q = e.NewTextValue;
+			
+
+			lst_produtos.IsRefreshing = true;
 
 			lista.Clear();
 
 			List<Produto> tmp = await App.Db.Search(q);
+			
 
 			tmp.ForEach(i => lista.Add(i));
+			
 
 		}catch(Exception ex){
 
 			await DisplayAlert("Erro", ex.Message, "OK");
+
+		} finally {
+
+			lst_produtos.IsRefreshing = false;
 		}
 	}
 
@@ -108,5 +115,36 @@ public partial class ListaProduto : ContentPage
 		{
 			DisplayAlert("Erro", ex.Message, "OK");
 		}
+	}
+
+    private async void lst_produtos_Refreshing(object sender, EventArgs e)
+    {
+		try{
+			lista.Clear();
+
+	   		List<Produto> tmp = await App.Db.GetAll();
+
+			tmp.ForEach(i => lista.Add(i));
+
+		}catch(Exception ex){
+
+			await DisplayAlert("Erro", ex.Message, "OK");
+		} finally {
+			lst_produtos.IsRefreshing = false;
+		}
+    }
+
+    private  void ToolbarItem_Clicked2(object sender, EventArgs e)
+    {
+		try{
+
+			List<Produto> produtos = lista.ToList();
+
+			Navigation.PushAsync(new Views.RelatorioCompras(produtos));
+
+		}catch(Exception ex){
+
+			DisplayAlert("Erro", ex.Message, "OK");
+    	}
 	}
 }
